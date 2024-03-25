@@ -8,15 +8,13 @@
 .cardFrame {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 40px;
-  width: 1060px;
 }
 
 .card-list {
   width: 100%;
   display: grid;
-  place-content: center;
+  justify-content: center;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
 }

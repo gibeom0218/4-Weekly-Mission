@@ -94,22 +94,21 @@ export default function FolderSection() {
                 <span>삭제</span>
               </div>
             </div>
-            <ul className="card-list">
+            <div className="card-list">
               {cardList.map(
                 ({ id, created_at, url, description, image_source }) => {
                   return (
-                    <li key={id} className="card-item">
-                      <CardList
-                        url={url}
-                        createdAt={created_at}
-                        desc={description}
-                        imgUrl={image_source}
-                      />
-                    </li>
+                    <CardList
+                      key={id}
+                      url={url}
+                      createdAt={created_at}
+                      desc={description}
+                      imgUrl={image_source}
+                    />
                   );
                 }
               )}
-            </ul>
+            </div>
           </>
         ) : (
           <div>저장된 링크가 없습니다.</div>
