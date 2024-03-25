@@ -4,6 +4,7 @@
   flex-direction: column;
   height: auto;
   position: relative;
+  overflow: hidden;
 }
 
 #cardImg {
@@ -15,6 +16,7 @@
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   background: lightgray 50% / cover no-repeat;
+  transition: transform 0.3s ease;
 }
 
 #starIcon {
