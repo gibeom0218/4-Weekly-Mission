@@ -36,7 +36,7 @@ export async function getAllLinks() {
   return allLinks;
 }
 
-export async function getFolderLink(id) {
+export async function getFolderLink(id: number) {
   const response = await fetch(`${BASE_URL}/api/users/1/links?folderId=${id}`);
   if (!response.ok) {
     throw new Error("해당 폴더 링크를 불러오는데 실패했습니다");

@@ -1,3 +1,4 @@
+import React, { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { getFolderList, getAllLinks, getFolderLink } from "../api";
 import CardList from "./CardList";
@@ -8,10 +9,23 @@ import penIcon from "../assets/pen.svg";
 import deleteIcon from "../assets/delete.svg";
 import "./FolderSection.css";
 
+interface FolderListType {
+  name: string;
+  id: number;
+}
+
+interface CardListType {
+  id: number;
+  created_at: string;
+  url: string;
+  description: string;
+  image_source: string;
+}
+
 export default function FolderSection() {
   const [folderName, setFolderName] = useState("");
-  const [folderList, setFolderList] = useState([]);
-  const [cardList, setCardList] = useState([]);
+  const [folderList, setFolderList] = useState<FolderListType[]>([]);
+  const [cardList, setCardList] = useState<CardListType[]>([]);
 
   //전체 폴더 클릭
   async function getAllList() {
@@ -23,15 +37,15 @@ export default function FolderSection() {
     }
   }
 
-  async function folderAllNameClick(e) {
-    setFolderName(e.target.textContent);
+  async function folderAllNameClick(all: string) {
+    setFolderName(all);
     await getAllList();
   }
   //전체 폴더 클릭
 
   //개별 폴더 클릭
 
-  async function getList(id) {
+  async function getList(id: number) {
     try {
       const { data } = await getFolderLink(id);
       setCardList(data);
@@ -40,9 +54,9 @@ export default function FolderSection() {
     }
   }
 
-  async function folderNameClick(e) {
-    setFolderName(e.target.textContent);
-    await getList(e.target.id);
+  async function folderNameClick(name: string, id: number) {
+    setFolderName(name);
+    await getList(id);
   }
 
   //개별 폴더 클릭
@@ -67,10 +81,10 @@ export default function FolderSection() {
         <SearchBar />
         <div className="FolderBtnList">
           <div className="FolderBtn">
-            <button onClick={folderAllNameClick}>전체</button>
+            <button onClick={() => folderAllNameClick("전체")}>전체</button>
             {folderList.map(({ name, id }) => {
               return (
-                <button key={id} id={id} onClick={folderNameClick}>
+                <button key={id} onClick={() => folderNameClick(name, id)}>
                   {name}
                 </button>
               );

@@ -1,10 +1,16 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { getUser } from "../api";
 import "./NavigationBar.css";
 import Linkbrary from "../assets/logo.svg";
 
+interface ProfileObj {
+  profileImageSource: string;
+  email: string;
+}
+
 export default function NavigationBar() {
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState<ProfileObj | null>(null);
 
   useEffect(() => {
     async function getProFile() {

@@ -1,8 +1,21 @@
+import React from "react";
 import "./CardList.css";
 import star_icon from "../assets/star.svg";
 import kebab_icon from "../assets/kebab.svg";
 
-export default function CardList({ url, createdAt, desc, imgUrl }) {
+interface CardListProps {
+  url: string;
+  createdAt: string;
+  desc: string;
+  imgUrl: string;
+}
+
+export default function CardList({
+  url,
+  createdAt,
+  desc,
+  imgUrl,
+}: CardListProps) {
   const linkUrl = () => {
     window.open(url);
   };
@@ -15,10 +28,10 @@ export default function CardList({ url, createdAt, desc, imgUrl }) {
     })
     .replace(/\./g, ". ");
 
-  const timeAgo = (createdAt) => {
+  const timeAgo = (createdAt: string) => {
     const currentTime = new Date();
     const createdTime = new Date(createdAt);
-    const timeDiff = Math.abs(currentTime - createdTime);
+    const timeDiff = Math.abs(currentTime.getTime() - createdTime.getTime());
     const minute = 60 * 1000;
     const hour = minute * 60;
     const day = hour * 24;

@@ -1,11 +1,12 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { getFolder } from "../api";
 import "./FolderBar.css";
 
 export default function FolderBar() {
-  const [folderName, setFolderName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const [folderName, setFolderName] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
+  const [profileImage, setProfileImage] = useState<string>("");
 
   useEffect(() => {
     async function getProFileFolder() {

@@ -1,3 +1,4 @@
+import React from "react";
 import NavigationBar from "../components/NavigationBar";
 import FolderBar from "../components/FolderBar";
 import CardSection from "../components/CardSection";

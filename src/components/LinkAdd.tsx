@@ -1,3 +1,4 @@
+import React from "react";
 import "./LinkAdd.css";
 import linkIcon from "../assets/link.svg";
 
