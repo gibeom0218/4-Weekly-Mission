@@ -96,28 +96,17 @@
   line-height: normal;
 }
 
-/* 화면 너비가 1124px 미만인 경우 테블릿*/
 @media (max-width: 1123px) {
   .CardList {
-    width: 100%;
-  }
-  #cardImg {
-    width: 100%;
-  }
-  #textArea {
-    width: 100%;
+    max-width: calc(50% - 20px); /* 변경: 화면의 반만큼의 너비 설정 */
+    width: 100%; /* 추가: 화면이 작을 때 컨테이너가 확장되도록 수정 */
   }
 }
 
-/* 화면 너비가 767px 미만인 경우 모바일*/
+/* 화면 너비가 767px 미만인 경우  모바일*/
 @media (max-width: 767px) {
   .CardList {
-    width: 100%;
-  }
-  #cardImg {
-    width: 100%;
-  }
-  #textArea {
+    max-width: 100%;
     width: 100%;
   }
 }
