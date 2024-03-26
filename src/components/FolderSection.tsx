@@ -9,6 +9,7 @@ import penIcon from "../assets/pen.svg";
 import deleteIcon from "../assets/delete.svg";
 import "./FolderSection.css";
 import Edit from "../modal/Edit";
+import AddFolder from "../modal/AddFolder";
 
 interface FolderListType {
   name: string;
@@ -28,6 +29,7 @@ export default function FolderSection() {
   const [folderList, setFolderList] = useState<FolderListType[]>([]);
   const [cardList, setCardList] = useState<CardListType[]>([]);
   const [isEditNameModal, setIsEditNameModal] = useState<boolean>(false);
+  const [isAddFolderModal, setIsAddFolderModal] = useState<boolean>(false);
 
   //전체 폴더 클릭
   async function getAllList() {
@@ -82,6 +84,11 @@ export default function FolderSection() {
     setIsEditNameModal(!isEditNameModal);
   };
 
+  //폴더 추가 아이콘 클릭시 뜨는 모달창 함수
+  const clickAddFolder = () => {
+    setIsAddFolderModal(!isAddFolderModal);
+  };
+
   return (
     <div className="FolderSection">
       <div className="FolderSection-Frame">
@@ -89,6 +96,7 @@ export default function FolderSection() {
         {isEditNameModal && (
           <Edit folderName={folderName} onClose={clickEditName} />
         )}
+        {isAddFolderModal && <AddFolder onClose={clickAddFolder} />}
         <div className="FolderBtnList">
           <div className="FolderBtn">
             <button onClick={() => folderAllNameClick("전체")}>전체</button>
@@ -102,7 +110,7 @@ export default function FolderSection() {
           </div>
           <div className="AddFolder">
             <span>폴더 추가</span>
-            <img src={addImg} alt="폴더 추가 버튼" />
+            <img src={addImg} alt="폴더 추가 버튼" onClick={clickAddFolder} />
           </div>
         </div>
         {cardList[0] ? (
