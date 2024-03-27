@@ -11,6 +11,7 @@ import "./FolderSection.css";
 import Edit from "../modal/Edit";
 import AddFolder from "../modal/AddFolder";
 import Share from "../modal/Share";
+import DeleteFolder from "../modal/DeleteFolder";
 
 interface FolderListType {
   name: string;
@@ -32,6 +33,8 @@ export default function FolderSection() {
   const [isEditNameModal, setIsEditNameModal] = useState<boolean>(false);
   const [isAddFolderModal, setIsAddFolderModal] = useState<boolean>(false);
   const [isShareModal, setIsShareModal] = useState<boolean>(false);
+  const [isDeleteFolderModal, setIsDeleteFolderModal] =
+    useState<boolean>(false);
 
   //전체 폴더 클릭
   async function getAllList() {
@@ -96,6 +99,11 @@ export default function FolderSection() {
     setIsShareModal(!isShareModal);
   };
 
+  //삭제 아이콘 클릭시 뜨는 모달창 함수
+  const clickDeleteFolder = () => {
+    setIsDeleteFolderModal(!isDeleteFolderModal);
+  };
+
   return (
     <div className="FolderSection">
       <div className="FolderSection-Frame">
@@ -105,6 +113,9 @@ export default function FolderSection() {
         )}
         {isAddFolderModal && <AddFolder onClose={clickAddFolder} />}
         {isShareModal && <Share folderName={folderName} onClose={clickShare} />}
+        {isDeleteFolderModal && (
+          <DeleteFolder folderName={folderName} onClose={clickDeleteFolder} />
+        )}
         <div className="FolderBtnList">
           <div className="FolderBtn">
             <button onClick={() => folderAllNameClick("전체")}>전체</button>
@@ -134,7 +145,11 @@ export default function FolderSection() {
                   onClick={clickEditName}
                 />
                 <span>이름 변경</span>
-                <img src={deleteIcon} alt="삭제 아이콘" />
+                <img
+                  src={deleteIcon}
+                  alt="삭제 아이콘"
+                  onClick={clickDeleteFolder}
+                />
                 <span>삭제</span>
               </div>
             </div>

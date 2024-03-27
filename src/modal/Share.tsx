@@ -5,12 +5,12 @@ import kakaoIcon from "../assets/kakao.svg";
 import facebookIcon from "../assets/facebook_icon.svg";
 import linkIcon from "../assets/link.svg";
 
-interface AddFolderProps {
+interface ShareProps {
   folderName: string;
   onClose: any;
 }
 
-export default function Share({ folderName, onClose }: AddFolderProps) {
+export default function Share({ folderName, onClose }: ShareProps) {
   return (
     <div className="modalBackground">
       <div className="modalContainer">
