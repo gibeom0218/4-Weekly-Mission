@@ -10,6 +10,7 @@ import deleteIcon from "../assets/delete.svg";
 import "./FolderSection.css";
 import Edit from "../modal/Edit";
 import AddFolder from "../modal/AddFolder";
+import Share from "../modal/Share";
 
 interface FolderListType {
   name: string;
@@ -30,6 +31,7 @@ export default function FolderSection() {
   const [cardList, setCardList] = useState<CardListType[]>([]);
   const [isEditNameModal, setIsEditNameModal] = useState<boolean>(false);
   const [isAddFolderModal, setIsAddFolderModal] = useState<boolean>(false);
+  const [isShareModal, setIsShareModal] = useState<boolean>(false);
 
   //전체 폴더 클릭
   async function getAllList() {
@@ -89,6 +91,11 @@ export default function FolderSection() {
     setIsAddFolderModal(!isAddFolderModal);
   };
 
+  //폴더 공유 아이콘 클릭시 뜨는 모달창 함수
+  const clickShare = () => {
+    setIsShareModal(!isShareModal);
+  };
+
   return (
     <div className="FolderSection">
       <div className="FolderSection-Frame">
@@ -97,6 +104,7 @@ export default function FolderSection() {
           <Edit folderName={folderName} onClose={clickEditName} />
         )}
         {isAddFolderModal && <AddFolder onClose={clickAddFolder} />}
+        {isShareModal && <Share folderName={folderName} onClose={clickShare} />}
         <div className="FolderBtnList">
           <div className="FolderBtn">
             <button onClick={() => folderAllNameClick("전체")}>전체</button>
@@ -118,7 +126,7 @@ export default function FolderSection() {
             <div className="FolderNameBar">
               <span>{folderName}</span>
               <div className="OptionIcon">
-                <img src={shareIcon} alt="공유 아이콘" />
+                <img src={shareIcon} alt="공유 아이콘" onClick={clickShare} />
                 <span>공유</span>
                 <img
                   src={penIcon}
