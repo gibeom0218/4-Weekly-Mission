@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DeleteLink from "../modal/DeleteLink";
+import Add from "../modal/Add";
 import "./CardList.css";
 import star_icon from "../assets/star.svg";
 import kebab_icon from "../assets/kebab.svg";
@@ -19,6 +20,7 @@ export default function CardList({
 }: CardListProps) {
   const [isPopOver, setIsPopOver] = useState(false);
   const [isDeleteLinkModal, setIsDeleteLinkModal] = useState(false);
+  const [isAddModal, setIsAddModal] = useState(false);
 
   const clickKebab = () => {
     setIsPopOver(!isPopOver);
@@ -26,6 +28,10 @@ export default function CardList({
 
   const clickDeleteLink = () => {
     setIsDeleteLinkModal(!isDeleteLinkModal);
+  };
+
+  const clickAdd = () => {
+    setIsAddModal(!isAddModal);
   };
 
   const linkUrl = () => {
@@ -68,6 +74,7 @@ export default function CardList({
   return (
     <div className="CardList">
       {isDeleteLinkModal && <DeleteLink link={url} onClose={clickDeleteLink} />}
+      {isAddModal && <Add onClose={clickAdd} />}
       <img
         id="cardImg"
         src={imgUrl}
@@ -92,7 +99,9 @@ export default function CardList({
             <div id="popOverDel" onClick={clickDeleteLink}>
               삭제하기
             </div>
-            <div id="popOverAdd">폴더에 추가</div>
+            <div id="popOverAdd" onClick={clickAdd}>
+              폴더에 추가
+            </div>
           </div>
         )}
       </div>

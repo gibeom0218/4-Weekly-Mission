@@ -41,6 +41,7 @@ export default function FolderSection() {
     try {
       const { data } = await getAllLinks();
       setCardList(data);
+      console.log(folderList);
     } catch (error) {
       console.error(error);
     }
