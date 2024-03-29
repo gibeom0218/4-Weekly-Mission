@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import DeleteLink from "../modal/DeleteLink";
 import "./CardList.css";
 import star_icon from "../assets/star.svg";
 import kebab_icon from "../assets/kebab.svg";
@@ -16,6 +17,17 @@ export default function CardList({
   desc,
   imgUrl,
 }: CardListProps) {
+  const [isPopOver, setIsPopOver] = useState(false);
+  const [isDeleteLinkModal, setIsDeleteLinkModal] = useState(false);
+
+  const clickKebab = () => {
+    setIsPopOver(!isPopOver);
+  };
+
+  const clickDeleteLink = () => {
+    setIsDeleteLinkModal(!isDeleteLinkModal);
+  };
+
   const linkUrl = () => {
     window.open(url);
   };
@@ -54,16 +66,35 @@ export default function CardList({
   };
 
   return (
-    <div className="CardList" onClick={linkUrl}>
-      <img id="cardImg" src={imgUrl} alt="카드 리스트별 이미지" />
+    <div className="CardList">
+      {isDeleteLinkModal && <DeleteLink link={url} onClose={clickDeleteLink} />}
+      <img
+        id="cardImg"
+        src={imgUrl}
+        alt="카드 리스트별 이미지"
+        onClick={linkUrl}
+      />
       <img id="starIcon" src={star_icon} alt="별 모양 버튼" />
       <div id="textarea">
         <div id="timeAgoFrame">
           <span id="timeOut">{timeAgo(createdAt)}</span>
-          <img id="kebabIcon" src={kebab_icon} alt="케밥 버튼" />
+          <img
+            id="kebabIcon"
+            src={kebab_icon}
+            alt="케밥 버튼"
+            onClick={clickKebab}
+          />
         </div>
         <p id="description">{desc}</p>
         <p id="createdAt">{formattedDate}</p>
+        {isPopOver && (
+          <div className="popOver">
+            <div id="popOverDel" onClick={clickDeleteLink}>
+              삭제하기
+            </div>
+            <div id="popOverAdd">폴더에 추가</div>
+          </div>
+        )}
       </div>
     </div>
   );
