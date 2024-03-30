@@ -5,6 +5,7 @@ import checkIcon from "../assets/check.svg";
 import closeIcon from "../assets/close.svg";
 
 interface AddProps {
+  linkUrl: string;
   onClose: any;
 }
 
@@ -16,7 +17,7 @@ interface listType {
   };
 }
 
-export default function AddFolder({ onClose }: AddProps) {
+export default function Add({ linkUrl, onClose }: AddProps) {
   const [list, setList] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null); // 클릭한 항목의 인덱스를 저장하는 상태 변수
 
@@ -46,7 +47,7 @@ export default function AddFolder({ onClose }: AddProps) {
       <div className="modalAddContainer">
         <div className="modalTitle">
           <p id="mainTitle">폴더에 추가</p>
-          <p id="subTitle">링크 주소</p>
+          <p id="subTitle">{linkUrl}</p>
         </div>
         <div className="listDivFrame">
           {list.map(({ name, id, link }: listType, index) => {

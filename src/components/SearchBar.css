@@ -1,4 +1,5 @@
 .searchBar {
+  position: relative;
   margin-top: 40px;
   display: flex;
   width: 100%;
@@ -10,7 +11,6 @@
 }
 
 .searchBarElement {
-  position: relative; /* 부모 요소를 relative로 설정 */
   display: flex;
   align-items: center;
   gap: 10px;
@@ -26,7 +26,7 @@
   height: 24px;
   flex-shrink: 0;
   position: absolute; /* close 아이콘의 위치를 조정하기 위해 절대 위치 지정 */
-  right: 0px; /* input 요소의 오른쪽에서 16px 떨어진 위치 */
+  right: 30px; /* input 요소의 오른쪽에서 16px 떨어진 위치 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능한 상태로 표시 */
 }
 

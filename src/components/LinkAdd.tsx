@@ -12,7 +12,7 @@ export default function LinkAdd() {
             <input
               type="text"
               id="inputText"
-              placeholder="링크를 검색해보세요."
+              placeholder="링크를 추가해보세요."
             />
           </div>
           <button id="addBtn">추가하기</button>

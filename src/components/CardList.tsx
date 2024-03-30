@@ -74,7 +74,7 @@ export default function CardList({
   return (
     <div className="CardList">
       {isDeleteLinkModal && <DeleteLink link={url} onClose={clickDeleteLink} />}
-      {isAddModal && <Add onClose={clickAdd} />}
+      {isAddModal && <Add linkUrl={url} onClose={clickAdd} />}
       <img
         id="cardImg"
         src={imgUrl}
