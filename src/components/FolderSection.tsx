@@ -27,7 +27,7 @@ interface CardListType {
 }
 
 export default function FolderSection() {
-  const [folderName, setFolderName] = useState("");
+  const [folderName, setFolderName] = useState("폴더를 선택해주세요");
   const [folderList, setFolderList] = useState<FolderListType[]>([]);
   const [cardList, setCardList] = useState<CardListType[]>([]);
   const [isEditNameModal, setIsEditNameModal] = useState<boolean>(false);
@@ -35,12 +35,15 @@ export default function FolderSection() {
   const [isShareModal, setIsShareModal] = useState<boolean>(false);
   const [isDeleteFolderModal, setIsDeleteFolderModal] =
     useState<boolean>(false);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | string>();
 
   //전체 폴더 클릭
+
   async function getAllList() {
     try {
       const { data } = await getAllLinks();
       setCardList(data);
+      setFolderName("전체");
       console.log(folderList);
     } catch (error) {
       console.error(error);
@@ -119,10 +122,25 @@ export default function FolderSection() {
         )}
         <div className="FolderBtnList">
           <div className="FolderBtn">
-            <button onClick={() => folderAllNameClick("전체")}>전체</button>
+            <button
+              className={selectedFolderId === "전체" ? "active" : ""}
+              onClick={() => {
+                folderAllNameClick("전체");
+                setSelectedFolderId("전체");
+              }}
+            >
+              전체
+            </button>
             {folderList.map(({ name, id }) => {
               return (
-                <button key={id} onClick={() => folderNameClick(name, id)}>
+                <button
+                  key={id}
+                  className={selectedFolderId === id ? "active" : ""}
+                  onClick={() => {
+                    folderNameClick(name, id);
+                    setSelectedFolderId(id);
+                  }}
+                >
                   {name}
                 </button>
               );
@@ -191,7 +209,7 @@ export default function FolderSection() {
                 <span>삭제</span>
               </div>
             </div>
-            <div>저장된 링크가 없습니다.</div>
+            <div className="noLinkMsg">저장된 링크가 없습니다.</div>
           </>
         )}
       </div>
