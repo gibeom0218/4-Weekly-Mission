@@ -53,6 +53,11 @@
   );
 }
 
+.listDivFrame {
+  overflow-y: auto; /* 세로 스크롤이 가능하도록 함 */
+  max-height: 200px; /* 최대 높이 설정 (필요에 따라 조절 가능) */
+}
+
 .listDiv {
   display: flex;
   padding: 8px;

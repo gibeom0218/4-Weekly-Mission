@@ -171,7 +171,28 @@ export default function FolderSection() {
             </div>
           </>
         ) : (
-          <div>저장된 링크가 없습니다.</div>
+          <>
+            <div className="FolderNameBar">
+              <span>{folderName}</span>
+              <div className="OptionIcon">
+                <img src={shareIcon} alt="공유 아이콘" onClick={clickShare} />
+                <span>공유</span>
+                <img
+                  src={penIcon}
+                  alt="이름 변경 아이콘"
+                  onClick={clickEditName}
+                />
+                <span>이름 변경</span>
+                <img
+                  src={deleteIcon}
+                  alt="삭제 아이콘"
+                  onClick={clickDeleteFolder}
+                />
+                <span>삭제</span>
+              </div>
+            </div>
+            <div>저장된 링크가 없습니다.</div>
+          </>
         )}
       </div>
     </div>

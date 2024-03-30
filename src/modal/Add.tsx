@@ -48,23 +48,27 @@ export default function AddFolder({ onClose }: AddProps) {
           <p id="mainTitle">폴더에 추가</p>
           <p id="subTitle">링크 주소</p>
         </div>
-        {list.map(({ name, id, link }: listType, index) => {
-          return (
-            <div
-              className={`listDiv ${selectedItem === index ? "selected" : ""}`} // 클릭한 항목인 경우에는 'selected' 클래스를 추가
-              key={id}
-              onClick={() => clickListItem(index)} // 클릭 이벤트 핸들러 추가
-            >
-              <div className="listContent">
-                <span id="name">{name}</span>
-                <span id="linkCount">{`${link.count}개 링크`}</span>
+        <div className="listDivFrame">
+          {list.map(({ name, id, link }: listType, index) => {
+            return (
+              <div
+                className={`listDiv ${
+                  selectedItem === index ? "selected" : ""
+                }`} // 클릭한 항목인 경우에는 'selected' 클래스를 추가
+                key={id}
+                onClick={() => clickListItem(index)} // 클릭 이벤트 핸들러 추가
+              >
+                <div className="listContent">
+                  <span id="name">{name}</span>
+                  <span id="linkCount">{`${link.count}개 링크`}</span>
+                </div>
+                {selectedItem === index && (
+                  <img src={checkIcon} alt="checkIcon" />
+                )}
               </div>
-              {selectedItem === index && (
-                <img src={checkIcon} alt="checkIcon" />
-              )}
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
         <img id="closeIcon" src={closeIcon} alt="closeIcon" onClick={onClose} />
         <button onClick={click}>추가하기</button>
       </div>
