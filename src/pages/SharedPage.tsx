@@ -3,11 +3,11 @@ import NavigationBar from "../components/NavigationBar";
 import FolderBar from "../components/FolderBar";
 import CardSection from "../components/CardSection";
 import Footer from "../components/Footer";
-import "./App.css";
+import "./SharedPage.css";
 
-function App() {
+function SharedPage() {
   return (
-    <div className="App">
+    <div className="SharedPage">
       <NavigationBar />
       <FolderBar />
       <CardSection />
@@ -16,4 +16,4 @@ function App() {
   );
 }
 
-export default App;
+export default SharedPage;
