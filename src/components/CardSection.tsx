@@ -31,10 +31,12 @@ export default function CardSection() {
     getProFileFolder();
   }, []);
 
+  const dummyFunc = () => {};
+
   return (
     <div className="cardSection">
       <div className="cardFrame">
-        <SearchBar />
+        <SearchBar onInputChange={dummyFunc} />
         <div className="card-list">
           {cardList.map(({ id, createdAt, url, description, imageSource }) => {
             return (

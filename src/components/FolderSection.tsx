@@ -36,6 +36,8 @@ export default function FolderSection() {
   const [isDeleteFolderModal, setIsDeleteFolderModal] =
     useState<boolean>(false);
   const [selectedFolderId, setSelectedFolderId] = useState<number | string>();
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [filteredCardList, setFilteredCardList] = useState<CardListType[]>([]);
 
   //전체 폴더 클릭
 
@@ -108,10 +110,30 @@ export default function FolderSection() {
     setIsDeleteFolderModal(!isDeleteFolderModal);
   };
 
+  //검색 바의 값이 변화될때 실행되는 함수
+  const handleInputChange = (newValue: string) => {
+    setSearchInput(newValue);
+    if (newValue === "") {
+      // 입력값이 없을 때는 전체 카드 리스트를 보여줍니다.
+      setFilteredCardList(cardList);
+    } else {
+      // 입력값이 있을 때는 검색어에 맞는 카드 리스트를 필터링합니다.
+      const filteredList =
+        cardList && searchInput
+          ? cardList.filter(
+              (card) =>
+                (card.url && card.url.includes(newValue)) ||
+                (card.description && card.description.includes(newValue))
+            )
+          : cardList;
+      setFilteredCardList(filteredList);
+    }
+  };
+
   return (
     <div className="FolderSection">
       <div className="FolderSection-Frame">
-        <SearchBar />
+        <SearchBar onInputChange={handleInputChange} />
         {isEditNameModal && (
           <Edit folderName={folderName} onClose={clickEditName} />
         )}
@@ -173,7 +195,7 @@ export default function FolderSection() {
               </div>
             </div>
             <div className="card-list">
-              {cardList.map(
+              {filteredCardList.map(
                 ({ id, created_at, url, description, image_source }) => {
                   return (
                     <CardList
