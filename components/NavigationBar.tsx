@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getUser } from "@/pages/api/api";
 import styles from "@/styles/NavigationBar.module.css";
@@ -31,8 +32,9 @@ export default function NavigationBar() {
   return (
     <div className={styles.nav}>
       <div className={styles.navFrame}>
-        <Image id={styles.Linkbrary} src={Linkbrary} alt="Linkbrary" />
-
+        <Link href="/">
+          <Image id={styles.Linkbrary} src={Linkbrary} alt="Linkbrary" />
+        </Link>
         {profile ? (
           <div className={styles.account}>
             <img

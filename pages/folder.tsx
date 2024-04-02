@@ -3,11 +3,11 @@ import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
 import LinkAdd from "@/components/LinkAdd";
 import FolderSection from "@/components/FolderSection";
-// import "@/styles/FolderPage.css";
+import styles from "@/styles/FolderPage.module.css";
 
 function FolderPage() {
   return (
-    <div className="FolderPage">
+    <div className={styles.FolderPage}>
       <NavigationBar />
       <LinkAdd />
       <FolderSection />
