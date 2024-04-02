@@ -17,7 +17,7 @@ export default function CardSection() {
   const [cardList, setCardList] = useState<CardListType[]>([]);
 
   useEffect(() => {
-    async function getProFileFolder() {
+    async function getProfileFolder() {
       try {
         const {
           folder: { links },
@@ -28,7 +28,7 @@ export default function CardSection() {
       }
     }
 
-    getProFileFolder();
+    getProfileFolder();
   }, []);
 
   const dummyFunc = () => {};
