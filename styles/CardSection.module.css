@@ -1,0 +1,45 @@
+.cardSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.cardFrame {
+  display: flex;
+  flex-direction: column;
+  padding: 0 150px 0 150px;
+  gap: 40px;
+}
+
+.card_list {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 화면 너비가 1124px 미만인 경우  테블릿*/
+@media (max-width: 1123px) {
+  .card_list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cardFrame {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 32px 0 32px;
+  }
+}
+
+/* 화면 너비가 767px 미만인 경우  모바일*/
+@media (max-width: 767px) {
+  .card_list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .cardFrame {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 32px 0 32px;
+  }
+}
