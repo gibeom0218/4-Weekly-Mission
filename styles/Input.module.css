@@ -1,0 +1,38 @@
+.inputContainer {
+  display: flex;
+  width: 350px;
+  padding: 18px 15px;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--Linkbrary-gray20, #ccd5e3);
+  background: var(--Linkbrary-white, #fff);
+}
+
+.inputContainer input {
+  width: 100%;
+  color: var(--Linkbrary-gray100, #373740);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  border: none;
+  outline: none;
+}
+
+.errMsg {
+  color: var(--Linkbrary-red, #ff5b56);
+  /* Linkbrary/body2-regular */
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.inputContainer.focused {
+  border: 1px solid var(--Linkbrary-primary-color, #6d6afe);
+}
+
+.inputContainer.err {
+  border: 1px solid var(--Linkbrary-red, #ff5b56);
+}
