@@ -1,0 +1,33 @@
+.logoFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#logoImg {
+  width: 210.583px;
+  height: 38px;
+}
+
+.commentFrame {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+#comment {
+  color: var(--black, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+
+#linkComment {
+  color: var(--Linkbrary-primary-color, #6d6afe);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
