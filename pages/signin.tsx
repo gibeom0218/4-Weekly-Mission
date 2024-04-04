@@ -1,3 +1,4 @@
+import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Input from "@/components/Input";
@@ -7,19 +8,41 @@ import kakaoIcon from "@/public/images/kakao.svg";
 import googleIcon from "@/public/images/google.svg";
 
 export default function SignIn() {
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // ID와 비밀번호 값을 받음
+    const id = emailValue;
+    const password = passwordValue;
+
+    // 받은 값으로 로그인 등의 처리를 수행할 수 있음
+    console.log("ID:", id);
+    console.log("Password:", password);
+  };
+
+  const handleEmailChange = (value: string) => {
+    setEmailValue(value);
+  };
+
+  const handlePasswordChange = (value: string) => {
+    setPasswordValue(value);
+  };
   return (
     <div className={styles.container}>
-      <form className={styles.logInFrame}>
+      <form className={styles.logInFrame} onSubmit={handleSubmit}>
         <SignLogoFrame type="signIn" />
         <div className={styles.inputCommonFrame}>
           <div className={styles.inputFrame}>
             <span>이메일</span>
-            <Input inputType="id" />
+            <Input inputType="id" onChange={handleEmailChange} />
           </div>
 
           <div className={styles.inputFrame}>
             <span>비밀번호</span>
-            <Input inputType="password" />
+            <Input inputType="password" onChange={handlePasswordChange} />
           </div>
         </div>
 

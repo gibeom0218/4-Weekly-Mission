@@ -6,9 +6,10 @@ import eyeOn from "@/public/images/eye-on.svg";
 
 interface InputProp {
   inputType: string;
+  onChange: (value: string) => void;
 }
 
-export default function Input({ inputType }: InputProp) {
+export default function Input({ inputType, onChange }: InputProp) {
   const [isFocused, setIsFocused] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [type, setType] = useState(inputType);
@@ -42,6 +43,11 @@ export default function Input({ inputType }: InputProp) {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    onChange(newValue); // 부모 컴포넌트로 값을 전달
+  };
+
   return (
     <>
       <div
@@ -58,6 +64,7 @@ export default function Input({ inputType }: InputProp) {
           }
           onFocus={() => setIsFocused(true)}
           onBlur={handleError}
+          onChange={handleChange}
         />
         {inputType === "password" && (
           <Image
