@@ -9,7 +9,7 @@ import googleIcon from "@/public/images/google.svg";
 export default function SignIn() {
   return (
     <div className={styles.container}>
-      <div className={styles.logInFrame}>
+      <form className={styles.logInFrame}>
         <SignLogoFrame type="signIn" />
         <div className={styles.inputCommonFrame}>
           <div className={styles.inputFrame}>
@@ -23,7 +23,7 @@ export default function SignIn() {
           </div>
         </div>
 
-        <button id={styles.logInButton} type="button">
+        <button id={styles.logInButton} type="submit">
           로그인
         </button>
 
@@ -43,7 +43,7 @@ export default function SignIn() {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
