@@ -2,8 +2,9 @@ import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Input from "@/components/Input";
-import styles from "@/styles/SignInPage.module.css";
 import SignLogoFrame from "@/components/SignLogoFrame";
+import { postSignIn } from "./api/api";
+import styles from "@/styles/SignInPage.module.css";
 import kakaoIcon from "@/public/images/kakao.svg";
 import googleIcon from "@/public/images/google.svg";
 
@@ -11,16 +12,17 @@ export default function SignIn() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // ID와 비밀번호 값을 받음
-    const id = emailValue;
-    const password = passwordValue;
+    const status = await postSignIn(emailValue, passwordValue);
 
-    // 받은 값으로 로그인 등의 처리를 수행할 수 있음
-    console.log("ID:", id);
-    console.log("Password:", password);
+    if (status === 200) {
+      console.log("성공");
+    } else {
+      console.log("실패");
+      console.log(status);
+    }
   };
 
   const handleEmailChange = (value: string) => {

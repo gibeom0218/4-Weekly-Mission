@@ -44,3 +44,15 @@ export async function getFolderLink(id: number) {
   const folderLink = await response.json();
   return folderLink;
 }
+
+export async function postSignIn(id: string, password: string) {
+  const response = await fetch(`${BASE_URL}/api/sign-in`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: id,
+      password: password,
+    }),
+  });
+  return response.status;
+}
