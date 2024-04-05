@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Input from "@/components/Input";
@@ -12,16 +13,16 @@ export default function SignIn() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
+  const router = useRouter();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const status = await postSignIn(emailValue, passwordValue);
 
     if (status === 200) {
-      console.log("성공");
+      router.push("/folder");
     } else {
-      console.log("실패");
-      console.log(status);
     }
   };
 

@@ -21,6 +21,7 @@ export default function Input({ inputType, onChange }: InputProp) {
   const handleError = (e: React.FocusEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setIsFocused(false);
+
     if (!value && inputType === "id") {
       setErrorMsg("이메일을 입력해 주세요.");
     } else if (!value && inputType === "password") {
