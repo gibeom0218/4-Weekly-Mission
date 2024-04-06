@@ -17,13 +17,23 @@ export default function SignIn() {
 
   const router = useRouter();
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      router.push("/folder");
+    }
+  }, []);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const status = await postSignIn(emailValue, passwordValue);
+    const response = await postSignIn(emailValue, passwordValue);
 
-    if (status === 200) {
+    const { data } = await response.json();
+
+    if (response.status === 200) {
       router.push("/folder");
+      localStorage.setItem("accessToken", data.accessToken);
     } else {
       setEmailError("이메일을 확인해 주세요.");
       setPasswordError("비밀번호를 확인해 주세요.");

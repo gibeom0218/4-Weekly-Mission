@@ -54,5 +54,6 @@ export async function postSignIn(id: string, password: string) {
       password: password,
     }),
   });
-  return response.status;
+
+  return response;
 }
