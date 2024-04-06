@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/Input.module.css";
 import eyeOff from "@/public/images/eye-off.svg";
@@ -7,9 +7,16 @@ import eyeOn from "@/public/images/eye-on.svg";
 interface InputProp {
   inputType: string;
   onChange: (value: string) => void;
+  onSetErrMsg: (value: string) => void;
+  isError: string;
 }
 
-export default function Input({ inputType, onChange }: InputProp) {
+export default function Input({
+  inputType,
+  onChange,
+  onSetErrMsg,
+  isError,
+}: InputProp) {
   const [isFocused, setIsFocused] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [type, setType] = useState(inputType);
@@ -17,6 +24,11 @@ export default function Input({ inputType, onChange }: InputProp) {
 
   const emailChk = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordChk = /^(?=.*\d)(?=.*[a-z])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  //에러메시지가 바뀔때마다 에러메시지 초기화
+  useEffect(() => {
+    onSetErrMsg(errorMsg);
+  }, [errorMsg]);
 
   const handleError = (e: React.FocusEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -54,7 +66,7 @@ export default function Input({ inputType, onChange }: InputProp) {
       <div
         className={`${styles.inputContainer} ${
           isFocused ? styles.focused : ""
-        } ${errorMsg ? styles.err : ""}`}
+        } ${isError ? styles.err : ""}`}
       >
         <input
           type={type}
@@ -75,7 +87,6 @@ export default function Input({ inputType, onChange }: InputProp) {
           />
         )}
       </div>
-      {errorMsg && <p className={styles.errMsg}>{errorMsg}</p>}
     </>
   );
 }

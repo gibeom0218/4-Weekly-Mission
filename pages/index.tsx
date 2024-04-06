@@ -13,11 +13,9 @@ export default function Home() {
       <Link href="/folder">
         <h1>folder페이지로 이동</h1>
       </Link>
-      <br />
-      <Input inputType="id" />
-      <br />
-      <br />
-      <Input inputType="password" />
+      <Link href="/signin">
+        <h1>signin페이지로 이동</h1>
+      </Link>
     </>
   );
 }

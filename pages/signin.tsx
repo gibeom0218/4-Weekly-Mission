@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +12,8 @@ import googleIcon from "@/public/images/google.svg";
 export default function SignIn() {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const router = useRouter();
 
@@ -23,6 +25,8 @@ export default function SignIn() {
     if (status === 200) {
       router.push("/folder");
     } else {
+      setEmailError("이메일을 확인해 주세요.");
+      setPasswordError("비밀번호를 확인해 주세요.");
     }
   };
 
@@ -33,6 +37,15 @@ export default function SignIn() {
   const handlePasswordChange = (value: string) => {
     setPasswordValue(value);
   };
+
+  const handleSetIdErrMsg = (value: string) => {
+    setEmailError(value);
+  };
+
+  const handleSetPasswordErrMsg = (value: string) => {
+    setPasswordError(value);
+  };
+
   return (
     <div className={styles.container}>
       <form className={styles.logInFrame} onSubmit={handleSubmit}>
@@ -40,12 +53,24 @@ export default function SignIn() {
         <div className={styles.inputCommonFrame}>
           <div className={styles.inputFrame}>
             <span>이메일</span>
-            <Input inputType="id" onChange={handleEmailChange} />
+            <Input
+              inputType="id"
+              onChange={handleEmailChange}
+              onSetErrMsg={handleSetIdErrMsg}
+              isError={emailError}
+            />
+            {emailError && <p className={styles.errMsg}>{emailError}</p>}
           </div>
 
           <div className={styles.inputFrame}>
             <span>비밀번호</span>
-            <Input inputType="password" onChange={handlePasswordChange} />
+            <Input
+              inputType="password"
+              onChange={handlePasswordChange}
+              onSetErrMsg={handleSetPasswordErrMsg}
+              isError={passwordError}
+            />
+            {passwordError && <p className={styles.errMsg}>{passwordError}</p>}
           </div>
         </div>
 

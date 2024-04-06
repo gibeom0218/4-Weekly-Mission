@@ -109,3 +109,13 @@
   border-radius: 37.333px;
   background: #fee500;
 }
+
+.errMsg {
+  color: var(--Linkbrary-red, #ff5b56);
+  /* Linkbrary/body2-regular */
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
