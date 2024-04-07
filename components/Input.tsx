@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { postCheckEmail } from "@/pages/api/api";
 import styles from "@/styles/Input.module.css";
 import eyeOff from "@/public/images/eye-off.svg";
 import eyeOn from "@/public/images/eye-on.svg";
@@ -34,7 +35,7 @@ export default function Input({
     onSetErrMsg(errorMsg);
   }, [errorMsg]);
 
-  const handleError = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleError = async (e: React.FocusEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setIsFocused(false);
 
@@ -50,6 +51,10 @@ export default function Input({
       setErrorMsg("올바른 비밀번호를 입력해주세요.");
     } else if (page === "signUp" && inputType === "id" && value) {
       //회원가입 페이지에서의 이메일 input태그이고 값이 있는경우
+      const response = await postCheckEmail(value);
+      if (response.status !== 200) {
+        setErrorMsg("이미 사용 중인 이메일입니다.");
+      }
     } else {
       setErrorMsg("");
     }

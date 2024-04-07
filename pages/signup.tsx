@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Input from "@/components/Input";
 import SignLogoFrame from "@/components/SignLogoFrame";
-import { postSignIn } from "./api/api";
+import { postCheckEmail } from "./api/api";
 import styles from "@/styles/SignUpPage.module.css";
 import kakaoIcon from "@/public/images/kakao.svg";
 import googleIcon from "@/public/images/google.svg";
