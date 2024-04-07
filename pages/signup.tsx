@@ -99,7 +99,7 @@ export default function SignUp() {
               inputType="passwordChk"
               onChange={handlePasswordChkChange}
               onSetErrMsg={handleSetPasswordChkErrMsg}
-              isError={passwordError}
+              isError={passwordChkError}
             />
             {passwordChkError && (
               <p className={styles.errMsg}>{passwordChkError}</p>
