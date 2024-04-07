@@ -40,6 +40,8 @@ export default function Input({
       setErrorMsg("이메일을 입력해 주세요.");
     } else if (!value && inputType === "password") {
       setErrorMsg("비밀번호를 입력해 주세요.");
+    } else if (!value && inputType === "passwordChk") {
+      setErrorMsg("비밀번호를 다시 한번 입력해 주세요.");
     } else if (inputType === "id" && !emailChk.test(value)) {
       setErrorMsg("올바른 이메일 주소를 입력해주세요.");
     } else if (inputType === "password" && !passwordChk.test(value)) {

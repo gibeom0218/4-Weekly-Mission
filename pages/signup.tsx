@@ -28,18 +28,24 @@ export default function SignUp() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const response = await postSignIn(emailValue, passwordValue);
-
-    const { data } = await response.json();
-
-    if (response.status === 200) {
-      router.push("/folder");
-      localStorage.setItem("accessToken", data.accessToken);
+    if (passwordChkValue !== passwordValue) {
+      setPasswordChkError("비밀번호가 일치하지 않아요.");
+    } else if (emailError || passwordError || passwordChkError) {
+      //에러가 하나라도 있을 경우에는 회원가입 실행 X
     } else {
-      setEmailError("이메일을 확인해 주세요.");
-      setPasswordError("비밀번호를 확인해 주세요.");
+      console.log(111);
     }
+
+    // e.preventDefault();
+    // const response = await postSignIn(emailValue, passwordValue);
+    // const { data } = await response.json();
+    // if (response.status === 200) {
+    //   router.push("/folder");
+    //   localStorage.setItem("accessToken", data.accessToken);
+    // } else {
+    //   setEmailError("이메일을 확인해 주세요.");
+    //   setPasswordError("비밀번호를 확인해 주세요.");
+    // }
   };
 
   const handleEmailChange = (value: string) => {
