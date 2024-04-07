@@ -69,3 +69,16 @@ export async function postCheckEmail(id: string) {
 
   return response;
 }
+
+export async function postSignUp(id: string, password: string) {
+  const response = await fetch(`${BASE_URL}/api/sign-up`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: id,
+      password: password,
+    }),
+  });
+
+  return response;
+}

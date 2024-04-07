@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Input from "@/components/Input";
 import SignLogoFrame from "@/components/SignLogoFrame";
-import { postCheckEmail } from "./api/api";
+import { postSignUp } from "./api/api";
 import styles from "@/styles/SignUpPage.module.css";
 import kakaoIcon from "@/public/images/kakao.svg";
 import googleIcon from "@/public/images/google.svg";
@@ -28,24 +28,18 @@ export default function SignUp() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (passwordChkValue !== passwordValue) {
-      setPasswordChkError("비밀번호가 일치하지 않아요.");
-    } else if (emailError || passwordError || passwordChkError) {
+    if (emailError || passwordError || passwordChkError) {
       //에러가 하나라도 있을 경우에는 회원가입 실행 X
     } else {
-      console.log(111);
+      //회원가입 로직
+      const response = await postSignUp(emailValue, passwordValue);
+      const { data } = await response.json();
+      if (response.status === 200) {
+        router.push("/folder");
+        localStorage.setItem("accessToken", data.accessToken);
+      } else {
+      }
     }
-
-    // e.preventDefault();
-    // const response = await postSignIn(emailValue, passwordValue);
-    // const { data } = await response.json();
-    // if (response.status === 200) {
-    //   router.push("/folder");
-    //   localStorage.setItem("accessToken", data.accessToken);
-    // } else {
-    //   setEmailError("이메일을 확인해 주세요.");
-    //   setPasswordError("비밀번호를 확인해 주세요.");
-    // }
   };
 
   const handleEmailChange = (value: string) => {
@@ -107,6 +101,7 @@ export default function SignUp() {
               onChange={handlePasswordChkChange}
               onSetErrMsg={handleSetPasswordChkErrMsg}
               isError={passwordChkError}
+              passwordValue={passwordValue}
             />
             {passwordChkError && (
               <p className={styles.errMsg}>{passwordChkError}</p>
