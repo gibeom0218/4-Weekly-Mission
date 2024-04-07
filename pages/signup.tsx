@@ -80,6 +80,7 @@ export default function SignUp() {
           <div className={styles.inputFrame}>
             <span>이메일</span>
             <Input
+              page="signUp"
               inputType="id"
               onChange={handleEmailChange}
               onSetErrMsg={handleSetIdErrMsg}

@@ -57,3 +57,15 @@ export async function postSignIn(id: string, password: string) {
 
   return response;
 }
+
+export async function postCheckEmail(id: string) {
+  const response = await fetch(`${BASE_URL}/api/check-email`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: id,
+    }),
+  });
+
+  return response;
+}

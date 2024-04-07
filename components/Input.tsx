@@ -5,6 +5,7 @@ import eyeOff from "@/public/images/eye-off.svg";
 import eyeOn from "@/public/images/eye-on.svg";
 
 interface InputProp {
+  page?: string;
   inputType: string;
   onChange: (value: string) => void;
   onSetErrMsg: (value: string) => void;
@@ -12,6 +13,7 @@ interface InputProp {
 }
 
 export default function Input({
+  page,
   inputType,
   onChange,
   onSetErrMsg,
@@ -46,6 +48,8 @@ export default function Input({
       setErrorMsg("올바른 이메일 주소를 입력해주세요.");
     } else if (inputType === "password" && !passwordChk.test(value)) {
       setErrorMsg("올바른 비밀번호를 입력해주세요.");
+    } else if (page === "signUp" && inputType === "id" && value) {
+      //회원가입 페이지에서의 이메일 input태그이고 값이 있는경우
     } else {
       setErrorMsg("");
     }
