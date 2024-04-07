@@ -19,7 +19,9 @@ export default function Input({
 }: InputProp) {
   const [isFocused, setIsFocused] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [type, setType] = useState(inputType);
+  const [type, setType] = useState(
+    inputType === "passwordChk" ? "password" : inputType
+  );
   const [errorMsg, setErrorMsg] = useState("");
 
   const emailChk = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -71,9 +73,9 @@ export default function Input({
         <input
           type={type}
           placeholder={
-            type === "id"
+            inputType === "id"
               ? "이메일을 입력해 주세요."
-              : type === "password"
+              : inputType === "password"
               ? "비밀번호를 입력해 주세요."
               : "비밀번호와 일치하는 값을 입력해 주세요."
           }
@@ -81,7 +83,7 @@ export default function Input({
           onBlur={handleError}
           onChange={handleChange}
         />
-        {inputType === "password" && (
+        {(inputType === "password" || inputType === "passwordChk") && (
           <Image
             src={isShowPassword ? eyeOn : eyeOff}
             alt={isShowPassword ? "숨김" : "표시"}
