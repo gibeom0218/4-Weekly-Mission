@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import Input from "@/components/Input";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +14,9 @@ export default function Home() {
       </Link>
       <Link href="/signin">
         <h1>signin페이지로 이동</h1>
+      </Link>
+      <Link href="/signup">
+        <h1>signup페이지로 이동</h1>
       </Link>
     </>
   );
