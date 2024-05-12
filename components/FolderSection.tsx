@@ -83,7 +83,6 @@ export default function FolderSection() {
       setCardList(allList.data);
       setFilteredCardList(allList.data);
     }
-    console.log(1111);
   }, [individualList.data, folderName, allList.data]);
 
   //폴더 버튼
@@ -182,7 +181,7 @@ export default function FolderSection() {
             />
           </div>
         </div>
-        {cardList[0] ? (
+        {cardList ?? cardList[0] ? (
           <>
             <div className={styles.FolderNameBar}>
               <span>{folderName}</span>

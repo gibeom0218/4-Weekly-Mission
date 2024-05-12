@@ -1,35 +1,35 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { getFolder } from "@/pages/api/api";
+import { useQuery } from "@tanstack/react-query";
+import { getFolder, getFolderUser } from "@/pages/api/api";
 import styles from "@/styles/FolderBar.module.css";
 
-export default function FolderBar() {
-  const [folderName, setFolderName] = useState<string>("");
-  const [userName, setUserName] = useState<string>("");
-  const [profileImage, setProfileImage] = useState<string>("");
+export default function FolderBar({ id }: any) {
+  //폴더 이름을 가져오기 위한 쿼리
+  const folderInfo = useQuery({
+    queryKey: ["folderInfo"],
+    queryFn: async () => await getFolder(id),
+  });
 
-  useEffect(() => {
-    async function getProFileFolder() {
-      try {
-        const {
-          folder: { name, owner },
-        } = await getFolder();
-        setFolderName(name);
-        setUserName(owner.name);
-        setProfileImage(owner.profileImageSource);
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  //폴더 소유자를 가져오기 위한 쿼리
+  const folderOwner = useQuery({
+    queryKey: ["folderOwner"],
+    queryFn: async () => await getFolderUser(folderInfo.data[0].user_id),
+  });
 
-    getProFileFolder();
-  }, []);
   return (
     <div className={styles.FolderBar}>
       <div className={styles.user}>
-        <img id={styles.folderImg} src={profileImage} alt="폴더 이미지"></img>
-        <span id={styles.userName}>@{userName}</span>
-        <span id={styles.folderName}>{folderName}</span>
+        <img
+          id={styles.folderImg}
+          src={folderOwner.data && folderOwner.data[0]?.image_source}
+          alt="폴더 이미지"
+        ></img>
+        <span id={styles.userName}>
+          @{folderOwner.data && folderOwner.data[0]?.name}
+        </span>
+        <span id={styles.folderName}>
+          {folderInfo.data && folderInfo.data[0]?.name}
+        </span>
       </div>
     </div>
   );

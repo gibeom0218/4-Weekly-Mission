@@ -1,6 +1,7 @@
 const BASE_URL = "https://bootcamp-api.codeit.kr";
 const BASE_URL2 = "https://bootcamp-api.codeit.kr/api/linkbrary/v1";
 
+//로그인에 필요한 api 함수
 export async function getUser() {
   const token = localStorage.getItem("accessToken");
 
@@ -24,8 +25,19 @@ export async function getUser() {
   }
 }
 
-export async function getFolder() {
-  const response = await fetch(`${BASE_URL}/api/sample/folder`);
+//폴더 소유자의 정보를 얻기위한 api함수
+export async function getFolderUser(userId: number) {
+  const response = await fetch(`${BASE_URL2}/users/${userId}`);
+  if (!response.ok) {
+    throw new Error("폴더 정보를 불러올 수 없습니다.");
+  }
+  const folderUser = await response.json();
+  return folderUser;
+}
+
+//폴더의 정보를 얻기위한 api함수
+export async function getFolder(id: any) {
+  const response = await fetch(`${BASE_URL2}/folders/${id}`);
   if (!response.ok) {
     throw new Error("폴더 정보를 불러올 수 없습니다.");
   }
@@ -33,6 +45,7 @@ export async function getFolder() {
   return folder;
 }
 
+//현재 폴더 목록들을 얻기위한 api함수
 export async function getFolderList() {
   const token = localStorage.getItem("accessToken");
   try {
@@ -55,6 +68,7 @@ export async function getFolderList() {
   }
 }
 
+//전체 폴더의 링크 데이터를 얻기위한 api함수
 export async function getAllLinks() {
   const token = localStorage.getItem("accessToken");
 
@@ -78,6 +92,7 @@ export async function getAllLinks() {
   }
 }
 
+//개별 폴더의 링크 데이터를 얻기위한 api함수
 export async function getFolderLink(id: number) {
   const response = await fetch(`${BASE_URL2}/folders/${id}/links`);
   if (!response.ok) {

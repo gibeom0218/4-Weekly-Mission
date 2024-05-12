@@ -8,16 +8,13 @@ import styles from "@/styles/SharedPage.module.css";
 
 function SharedPage() {
   const router = useRouter();
-
-  if (!localStorage.getItem("accessToken")) {
-    router.push("/signin");
-  }
-
+  const { id } = router.query;
+  console.log(id);
   return (
     <div className={styles.SharedPage}>
       <NavigationBar />
-      <FolderBar />
-      <CardSection />
+      <FolderBar id={id} />
+      <CardSection id={id} />
       <Footer />
     </div>
   );

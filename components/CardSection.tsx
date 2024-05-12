@@ -1,35 +1,24 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { getFolder } from "@/pages/api/api";
+import { getFolderLink } from "@/pages/api/api";
+import { useQuery } from "@tanstack/react-query";
 import CardList from "@/components/CardList";
 import SearchBar from "@/components/SearchBar";
 import styles from "@/styles/CardSection.module.css";
 
 interface CardListType {
   id: number;
-  createdAt: string;
+  created_at: string;
   url: string;
   description: string;
-  imageSource: string;
+  image_source: string;
 }
 
-export default function CardSection() {
-  const [cardList, setCardList] = useState<CardListType[]>([]);
-
-  useEffect(() => {
-    async function getProfileFolder() {
-      try {
-        const {
-          folder: { links },
-        } = await getFolder();
-        setCardList(links);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getProfileFolder();
-  }, []);
+export default function CardSection({ id }: any) {
+  //카드 리스트들을 가져오기 위한
+  const cardList = useQuery({
+    queryKey: ["cardList"],
+    queryFn: async () => await getFolderLink(id),
+  });
 
   const dummyFunc = () => {};
 
@@ -38,17 +27,26 @@ export default function CardSection() {
       <div className={styles.cardFrame}>
         <SearchBar onInputChange={dummyFunc} />
         <div className={styles.card_list}>
-          {cardList.map(({ id, createdAt, url, description, imageSource }) => {
-            return (
-              <CardList
-                key={id}
-                url={url}
-                createdAt={createdAt}
-                desc={description}
-                imgUrl={imageSource}
-              />
-            );
-          })}
+          {cardList.data &&
+            cardList.data.map(
+              ({
+                id,
+                created_at,
+                url,
+                description,
+                image_source,
+              }: CardListType) => {
+                return (
+                  <CardList
+                    key={id}
+                    url={url}
+                    createdAt={created_at}
+                    desc={description}
+                    imgUrl={image_source}
+                  />
+                );
+              }
+            )}
         </div>
       </div>
     </div>
