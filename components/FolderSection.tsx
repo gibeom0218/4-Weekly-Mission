@@ -30,14 +30,19 @@ interface CardListType {
 
 export default function FolderSection() {
   const [folderName, setFolderName] = useState("폴더를 선택해주세요");
+  //카드리스트에 관한
   const [cardList, setCardList] = useState<CardListType[]>([]);
   const [filteredCardList, setFilteredCardList] = useState<CardListType[]>([]);
+  //모달에 관한
   const [isEditNameModal, setIsEditNameModal] = useState<boolean>(false);
   const [isAddFolderModal, setIsAddFolderModal] = useState<boolean>(false);
   const [isShareModal, setIsShareModal] = useState<boolean>(false);
   const [isDeleteFolderModal, setIsDeleteFolderModal] =
     useState<boolean>(false);
+  //선택한 id 버튼 활성화를 위해
   const [selectedFolderId, setSelectedFolderId] = useState<number | string>();
+  //선택한 id 개별 폴더 링크를 가져오기 위해
+  const [selectedId, setSelectedId] = useState<number>();
   const [searchInput, setSearchInput] = useState<string>("");
 
   //전체 폴더 가져오기
@@ -48,29 +53,38 @@ export default function FolderSection() {
 
   //전체 폴더 클릭
   async function folderAllNameClick() {
-    //await getAllList();
-    setCardList(allList.data);
-    setFilteredCardList(allList.data);
     setFolderName("전체");
   }
 
+  //개별 폴더 가져오기
+  const individualList = useQuery({
+    queryKey: ["individualList", selectedId],
+    queryFn: async () => {
+      if (selectedId) {
+        const data = await getFolderLink(selectedId);
+        return data;
+      } else {
+        return []; // 선택된 폴더가 없는 경우 빈 배열 반환
+      }
+    },
+  });
+
   //개별 폴더 클릭
-
-  async function getList(id: number) {
-    try {
-      const { data } = await getFolderLink(id);
-      setCardList(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function folderNameClick(name: string, id: number) {
+  async function folderNameClick(name: string) {
     setFolderName(name);
-    await getList(id);
   }
 
-  //개별 폴더 클릭
+  //폴더이름을 클릭했을 때 즉각적으로 링크 데이터들이 바뀌도록
+  useEffect(() => {
+    if (individualList.data && folderName !== "전체") {
+      setCardList(individualList.data);
+      setFilteredCardList(individualList.data);
+    } else if (folderName === "전체") {
+      setCardList(allList.data);
+      setFilteredCardList(allList.data);
+    }
+    console.log(1111);
+  }, [individualList.data, folderName, allList.data]);
 
   //폴더 버튼
   const folderList = useQuery({
@@ -137,6 +151,7 @@ export default function FolderSection() {
               onClick={() => {
                 folderAllNameClick();
                 setSelectedFolderId("전체");
+                setSelectedId(undefined);
               }}
             >
               전체
@@ -147,8 +162,9 @@ export default function FolderSection() {
                   key={id}
                   className={selectedFolderId === id ? styles.active : ""}
                   onClick={() => {
-                    folderNameClick(name, id);
+                    folderNameClick(name);
                     setSelectedFolderId(id);
+                    setSelectedId(id);
                   }}
                 >
                   {name}
