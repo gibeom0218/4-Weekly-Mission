@@ -31,6 +31,7 @@ interface CardListType {
 export default function FolderSection() {
   const [folderName, setFolderName] = useState("폴더를 선택해주세요");
   const [cardList, setCardList] = useState<CardListType[]>([]);
+  const [filteredCardList, setFilteredCardList] = useState<CardListType[]>([]);
   const [isEditNameModal, setIsEditNameModal] = useState<boolean>(false);
   const [isAddFolderModal, setIsAddFolderModal] = useState<boolean>(false);
   const [isShareModal, setIsShareModal] = useState<boolean>(false);
@@ -38,27 +39,20 @@ export default function FolderSection() {
     useState<boolean>(false);
   const [selectedFolderId, setSelectedFolderId] = useState<number | string>();
   const [searchInput, setSearchInput] = useState<string>("");
-  const [filteredCardList, setFilteredCardList] = useState<CardListType[]>([]);
+
+  //전체 폴더 가져오기
+  const allList = useQuery({
+    queryKey: ["allList"],
+    queryFn: async () => await getAllLinks(),
+  });
 
   //전체 폴더 클릭
-
-  async function getAllList() {
-    try {
-      const { data } = await getAllLinks();
-      setCardList(data);
-      setFilteredCardList(data);
-      setFolderName("전체");
-      console.log(folderList);
-    } catch (error) {
-      console.error(error);
-    }
+  async function folderAllNameClick() {
+    //await getAllList();
+    setCardList(allList.data);
+    setFilteredCardList(allList.data);
+    setFolderName("전체");
   }
-
-  async function folderAllNameClick(all: string) {
-    setFolderName(all);
-    await getAllList();
-  }
-  //전체 폴더 클릭
 
   //개별 폴더 클릭
 
@@ -141,7 +135,7 @@ export default function FolderSection() {
             <button
               className={selectedFolderId === "전체" ? styles.active : ""}
               onClick={() => {
-                folderAllNameClick("전체");
+                folderAllNameClick();
                 setSelectedFolderId("전체");
               }}
             >

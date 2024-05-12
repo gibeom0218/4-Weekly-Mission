@@ -56,12 +56,26 @@ export async function getFolderList() {
 }
 
 export async function getAllLinks() {
-  const response = await fetch(`${BASE_URL}/api/users/1/links`);
-  if (!response.ok) {
+  const token = localStorage.getItem("accessToken");
+
+  try {
+    const response = await fetch(`${BASE_URL2}/links`, {
+      method: "GET",
+      headers: {
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("전체 폴더 링크를 불러오는데 실패했습니다");
+    }
+
+    const allLinks = await response.json();
+    return allLinks;
+  } catch (error) {
     throw new Error("전체 폴더 링크를 불러오는데 실패했습니다");
   }
-  const allLinks = await response.json();
-  return allLinks;
 }
 
 export async function getFolderLink(id: number) {
