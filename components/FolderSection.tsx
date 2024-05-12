@@ -181,7 +181,7 @@ export default function FolderSection() {
             />
           </div>
         </div>
-        {cardList ?? cardList[0] ? (
+        {cardList && cardList[0] ? (
           <>
             <div className={styles.FolderNameBar}>
               <span>{folderName}</span>
