@@ -1,4 +1,5 @@
 const BASE_URL = "https://bootcamp-api.codeit.kr";
+const BASE_URL2 = "https://bootcamp-api.codeit.kr/api/linkbrary/v1";
 
 export async function getUser() {
   const response = await fetch(`${BASE_URL}/api/sample/user`);
@@ -46,7 +47,7 @@ export async function getFolderLink(id: number) {
 }
 
 export async function postSignIn(id: string, password: string) {
-  const response = await fetch(`${BASE_URL}/api/sign-in`, {
+  const response = await fetch(`${BASE_URL2}/auth/sign-in`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
