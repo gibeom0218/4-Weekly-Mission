@@ -2,12 +2,26 @@ const BASE_URL = "https://bootcamp-api.codeit.kr";
 const BASE_URL2 = "https://bootcamp-api.codeit.kr/api/linkbrary/v1";
 
 export async function getUser() {
-  const response = await fetch(`${BASE_URL}/api/sample/user`);
-  if (!response.ok) {
+  const token = localStorage.getItem("accessToken");
+
+  try {
+    const response = await fetch(`${BASE_URL2}/users`, {
+      method: "GET",
+      headers: {
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("유저 정보를 불러올 수 없습니다.");
+    }
+
+    const user = await response.json();
+    return user;
+  } catch (error) {
     throw new Error("유저 정보를 불러올 수 없습니다.");
   }
-  const user = await response.json();
-  return user;
 }
 
 export async function getFolder() {

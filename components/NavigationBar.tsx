@@ -1,33 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/pages/api/api";
 import styles from "@/styles/NavigationBar.module.css";
 import Linkbrary from "@/public/images/logo.svg";
 
-interface ProfileObj {
-  profileImageSource: string;
-  email: string;
-}
-
 export default function NavigationBar() {
-  const [profile, setProfile] = useState<ProfileObj | null>(null);
-
-  useEffect(() => {
-    async function getProFile() {
-      try {
-        const user = await getUser();
-        if (user) {
-          setProfile(user);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getProFile();
-  }, []);
+  const userInfo = useQuery({ queryKey: ["getUserInfo"], queryFn: getUser });
+  const user = userInfo.data;
 
   return (
     <div className={styles.nav}>
@@ -35,14 +16,14 @@ export default function NavigationBar() {
         <Link href="/">
           <Image id={styles.Linkbrary} src={Linkbrary} alt="Linkbrary" />
         </Link>
-        {profile ? (
+        {user ? (
           <div className={styles.account}>
             <img
               id={styles.MyProfile}
-              src={profile.profileImageSource}
+              src={user[0].image_source}
               alt="MyProfile"
             />
-            <span id={styles.Email}>{profile.email}</span>
+            <span id={styles.Email}>{user[0].email}</span>
           </div>
         ) : (
           <button>로그인</button>
