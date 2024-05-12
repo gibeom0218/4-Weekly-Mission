@@ -33,10 +33,10 @@ export default function SignUp() {
     } else {
       //회원가입 로직
       const response = await postSignUp(emailValue, passwordValue);
-      const { data } = await response.json();
+      const { accessToken } = await response.json();
       if (response.status === 200) {
         router.push("/folder");
-        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("accessToken", accessToken);
       } else {
       }
     }

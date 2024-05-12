@@ -29,11 +29,11 @@ export default function SignIn() {
 
     const response = await postSignIn(emailValue, passwordValue);
 
-    const { data } = await response.json();
+    const { accessToken } = await response.json();
 
     if (response.status === 200) {
       router.push("/folder");
-      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("accessToken", accessToken);
     } else {
       setEmailError("이메일을 확인해 주세요.");
       setPasswordError("비밀번호를 확인해 주세요.");
