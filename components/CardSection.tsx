@@ -14,7 +14,7 @@ interface CardListType {
 }
 
 export default function CardSection({ id }: any) {
-  //카드 리스트들을 가져오기 위한
+  //folderId 별로 카드 리스트들을 가져오기 위한
   const cardList = useQuery({
     queryKey: ["cardList"],
     queryFn: async () => await getFolderLink(id),
