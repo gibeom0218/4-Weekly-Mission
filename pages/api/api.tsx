@@ -60,7 +60,7 @@ export async function postSignIn(id: string, password: string) {
 }
 
 export async function postCheckEmail(id: string) {
-  const response = await fetch(`${BASE_URL}/api/check-email`, {
+  const response = await fetch(`${BASE_URL2}/users/check-email`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
