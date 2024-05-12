@@ -34,12 +34,25 @@ export async function getFolder() {
 }
 
 export async function getFolderList() {
-  const response = await fetch(`${BASE_URL}/api/users/1/folders`);
-  if (!response.ok) {
+  const token = localStorage.getItem("accessToken");
+  try {
+    const response = await fetch(`${BASE_URL2}/folders`, {
+      method: "GET",
+      headers: {
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("폴더 목록을 불러올 수 없습니다..");
+    }
+
+    const folderList = await response.json();
+    return folderList;
+  } catch (error) {
     throw new Error("폴더 목록을 불러올 수 없습니다..");
   }
-  const folderList = await response.json();
-  return folderList;
 }
 
 export async function getAllLinks() {

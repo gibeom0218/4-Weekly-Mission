@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getFolderList, getAllLinks, getFolderLink } from "@/pages/api/api";
+import { useQuery } from "@tanstack/react-query";
 import CardList from "@/components/CardList";
 import SearchBar from "@/components/SearchBar";
 import addImg from "@/public/images/add.svg";
@@ -29,7 +30,6 @@ interface CardListType {
 
 export default function FolderSection() {
   const [folderName, setFolderName] = useState("폴더를 선택해주세요");
-  const [folderList, setFolderList] = useState<FolderListType[]>([]);
   const [cardList, setCardList] = useState<CardListType[]>([]);
   const [isEditNameModal, setIsEditNameModal] = useState<boolean>(false);
   const [isAddFolderModal, setIsAddFolderModal] = useState<boolean>(false);
@@ -79,18 +79,10 @@ export default function FolderSection() {
   //개별 폴더 클릭
 
   //폴더 버튼
-  useEffect(() => {
-    async function getList() {
-      try {
-        const { data } = await getFolderList();
-        setFolderList(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getList();
-  }, []);
+  const folderList = useQuery({
+    queryKey: ["folderList"],
+    queryFn: async () => await getFolderList(),
+  });
 
   //이름변경 아이콘 클릭시 뜨는 모달창 함수
   const clickEditName = () => {
@@ -155,7 +147,7 @@ export default function FolderSection() {
             >
               전체
             </button>
-            {folderList.map(({ name, id }) => {
+            {folderList.data?.map(({ name, id }: FolderListType) => {
               return (
                 <button
                   key={id}
