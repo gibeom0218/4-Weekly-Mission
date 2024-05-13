@@ -1,12 +1,11 @@
-const BASE_URL = "https://bootcamp-api.codeit.kr";
-const BASE_URL2 = "https://bootcamp-api.codeit.kr/api/linkbrary/v1";
+const BASE_URL = "https://bootcamp-api.codeit.kr/api/linkbrary/v1";
 
-//로그인에 필요한 api 함수
+//네비게이션바에 필요한 회원정보를 받아오는 api함수
 export async function getUser() {
   const token = localStorage.getItem("accessToken");
 
   try {
-    const response = await fetch(`${BASE_URL2}/users`, {
+    const response = await fetch(`${BASE_URL}/users`, {
       method: "GET",
       headers: {
         Accept: "*/*",
@@ -27,7 +26,7 @@ export async function getUser() {
 
 //폴더 소유자의 정보를 얻기위한 api함수
 export async function getFolderUser(userId: number) {
-  const response = await fetch(`${BASE_URL2}/users/${userId}`);
+  const response = await fetch(`${BASE_URL}/users/${userId}`);
   if (!response.ok) {
     throw new Error("폴더 정보를 불러올 수 없습니다.");
   }
@@ -37,7 +36,7 @@ export async function getFolderUser(userId: number) {
 
 //폴더의 정보를 얻기위한 api함수
 export async function getFolder(id: any) {
-  const response = await fetch(`${BASE_URL2}/folders/${id}`);
+  const response = await fetch(`${BASE_URL}/folders/${id}`);
   if (!response.ok) {
     throw new Error("폴더 정보를 불러올 수 없습니다.");
   }
@@ -49,7 +48,7 @@ export async function getFolder(id: any) {
 export async function getFolderList() {
   const token = localStorage.getItem("accessToken");
   try {
-    const response = await fetch(`${BASE_URL2}/folders`, {
+    const response = await fetch(`${BASE_URL}/folders`, {
       method: "GET",
       headers: {
         Accept: "*/*",
@@ -73,7 +72,7 @@ export async function getAllLinks() {
   const token = localStorage.getItem("accessToken");
 
   try {
-    const response = await fetch(`${BASE_URL2}/links`, {
+    const response = await fetch(`${BASE_URL}/links`, {
       method: "GET",
       headers: {
         Accept: "*/*",
@@ -94,7 +93,7 @@ export async function getAllLinks() {
 
 //개별 폴더의 링크 데이터를 얻기위한 api함수
 export async function getFolderLink(id: number) {
-  const response = await fetch(`${BASE_URL2}/folders/${id}/links`);
+  const response = await fetch(`${BASE_URL}/folders/${id}/links`);
   if (!response.ok) {
     throw new Error("해당 폴더 링크를 불러오는데 실패했습니다");
   }
@@ -102,8 +101,9 @@ export async function getFolderLink(id: number) {
   return folderLink;
 }
 
+//로그인 요청을 위한 api함수
 export async function postSignIn(id: string, password: string) {
-  const response = await fetch(`${BASE_URL2}/auth/sign-in`, {
+  const response = await fetch(`${BASE_URL}/auth/sign-in`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -115,8 +115,9 @@ export async function postSignIn(id: string, password: string) {
   return response;
 }
 
+//이메일 중복 체크 api 함수
 export async function postCheckEmail(id: string) {
-  const response = await fetch(`${BASE_URL2}/users/check-email`, {
+  const response = await fetch(`${BASE_URL}/users/check-email`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -127,8 +128,9 @@ export async function postCheckEmail(id: string) {
   return response;
 }
 
+//회원가입 요청을 위한 api 함수
 export async function postSignUp(id: string, password: string) {
-  const response = await fetch(`${BASE_URL2}/auth/sign-up`, {
+  const response = await fetch(`${BASE_URL}/auth/sign-up`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

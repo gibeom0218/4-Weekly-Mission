@@ -6,8 +6,8 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <>
-      <Link href="/shared">
-        <h1>shared페이지로 이동</h1>
+      <Link href="/shared/1108">
+        <h1>shared/1108페이지로 이동</h1>
       </Link>
       <Link href="/folder">
         <h1>folder페이지로 이동</h1>
