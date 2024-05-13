@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getFolderList, getAllLinks, getFolderLink } from "@/pages/api/api";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import CardList from "@/components/CardList";
 import SearchBar from "@/components/SearchBar";
 import addImg from "@/public/images/add.svg";
@@ -46,6 +46,8 @@ export default function FolderSection() {
   const [selectedId, setSelectedId] = useState<number>();
   const [searchInput, setSearchInput] = useState<string>("");
 
+  const queryClient = useQueryClient();
+
   //전체 폴더 가져오기
   const allList = useQuery({
     queryKey: ["allList"],
@@ -56,6 +58,7 @@ export default function FolderSection() {
   async function folderAllNameClick() {
     setFolderName("전체");
     setFolderId(null);
+    queryClient.setQueryData(["folderId"], null);
   }
 
   //개별 폴더 가져오기
@@ -75,8 +78,8 @@ export default function FolderSection() {
   async function folderNameClick(name: string, id: number) {
     setFolderName(name);
     setFolderId(id);
+    queryClient.setQueryData(["folderId"], id);
   }
-
   //폴더이름을 클릭했을 때 즉각적으로 링크 데이터들이 바뀌도록
   useEffect(() => {
     if (individualList.data && folderName !== "전체") {
@@ -92,6 +95,15 @@ export default function FolderSection() {
   const folderList = useQuery({
     queryKey: ["folderList"],
     queryFn: async () => await getFolderList(),
+  });
+
+  //링크 추가를 위해 현재 폴더 id를 쿼리에 저장
+  //처음 랜더링 될때 한번
+  useQuery({
+    queryKey: ["folderId"],
+    queryFn: async () => {
+      return folderId;
+    },
   });
 
   //이름변경 아이콘 클릭시 뜨는 모달창 함수
