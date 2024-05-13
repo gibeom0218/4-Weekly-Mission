@@ -17,7 +17,9 @@ export default function Share({ folderId, folderName, onClose }: ShareProps) {
   const router = useRouter();
 
   const moveToSharePage = (id: number | null) => {
-    router.push(`/shared/${id}`);
+    if (id !== null) {
+      router.push(`/shared/${id}`);
+    }
   };
 
   return (
@@ -41,7 +43,7 @@ export default function Share({ folderId, folderName, onClose }: ShareProps) {
               onClick={() => moveToSharePage(folderId)}
               alt="kakaoIcon"
             />
-            <p>카카오톡</p>
+            <p>공유페이지</p>
           </div>
           <div id={styles.iconBoxFrame}>
             <Image
@@ -50,7 +52,7 @@ export default function Share({ folderId, folderName, onClose }: ShareProps) {
               onClick={() => moveToSharePage(folderId)}
               alt="facebookIcon"
             />
-            <p>페이스북</p>
+            <p>공유페이지</p>
           </div>
           <div id={styles.iconBoxFrame}>
             <Image
@@ -59,7 +61,7 @@ export default function Share({ folderId, folderName, onClose }: ShareProps) {
               onClick={() => moveToSharePage(folderId)}
               alt="linkIcon"
             />
-            <p>링크 복사</p>
+            <p>공유페이지</p>
           </div>
         </div>
       </div>
