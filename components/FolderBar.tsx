@@ -8,10 +8,9 @@ export default function FolderBar({ id }: any) {
   const folderInfo = useQuery({
     queryKey: ["folderInfo"],
     queryFn: () => getFolder(id),
+    staleTime: 0,
     enabled: id !== undefined,
   });
-
-  console.log(id);
 
   //폴더 소유자를 가져오기 위한 쿼리
   const folderOwner = useQuery({
