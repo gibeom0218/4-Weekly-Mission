@@ -7,13 +7,17 @@ export default function FolderBar({ id }: any) {
   //폴더 이름을 가져오기 위한 쿼리
   const folderInfo = useQuery({
     queryKey: ["folderInfo"],
-    queryFn: async () => await getFolder(id),
+    queryFn: () => getFolder(id),
+    enabled: id !== undefined,
   });
+
+  console.log(id);
 
   //폴더 소유자를 가져오기 위한 쿼리
   const folderOwner = useQuery({
     queryKey: ["folderOwner"],
-    queryFn: async () => await getFolderUser(folderInfo.data[0].user_id),
+    queryFn: () => getFolderUser(folderInfo.data[0].user_id),
+    enabled: !!folderInfo.data,
   });
 
   return (

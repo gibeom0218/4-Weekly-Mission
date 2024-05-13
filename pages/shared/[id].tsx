@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import NavigationBar from "@/components/NavigationBar";
 import FolderBar from "@/components/FolderBar";
@@ -9,7 +9,6 @@ import styles from "@/styles/SharedPage.module.css";
 function SharedPage() {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
   return (
     <div className={styles.SharedPage}>
       <NavigationBar />

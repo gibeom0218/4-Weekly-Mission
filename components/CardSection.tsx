@@ -1,5 +1,4 @@
 import React from "react";
-import { getFolderLink } from "@/pages/api/api";
 import { useQuery } from "@tanstack/react-query";
 import CardList from "@/components/CardList";
 import SearchBar from "@/components/SearchBar";
@@ -14,10 +13,8 @@ interface CardListType {
 }
 
 export default function CardSection({ id }: any) {
-  //folderId 별로 카드 리스트들을 가져오기 위한
   const cardList = useQuery({
-    queryKey: ["cardList"],
-    queryFn: async () => await getFolderLink(id),
+    queryKey: ["individualList", Number(id)],
   });
 
   const dummyFunc = () => {};
@@ -27,7 +24,7 @@ export default function CardSection({ id }: any) {
       <div className={styles.cardFrame}>
         <SearchBar onInputChange={dummyFunc} />
         <div className={styles.card_list}>
-          {cardList.data &&
+          {Array.isArray(cardList.data) &&
             cardList.data.map(
               ({
                 id,

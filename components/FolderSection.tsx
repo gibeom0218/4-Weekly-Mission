@@ -30,6 +30,7 @@ interface CardListType {
 
 export default function FolderSection() {
   const [folderName, setFolderName] = useState("폴더를 선택해주세요");
+  const [folderId, setFolderId] = useState<number | null>(null);
   //카드리스트에 관한
   const [cardList, setCardList] = useState<CardListType[]>([]);
   const [filteredCardList, setFilteredCardList] = useState<CardListType[]>([]);
@@ -54,6 +55,7 @@ export default function FolderSection() {
   //전체 폴더 클릭
   async function folderAllNameClick() {
     setFolderName("전체");
+    setFolderId(null);
   }
 
   //개별 폴더 가져오기
@@ -70,8 +72,9 @@ export default function FolderSection() {
   });
 
   //개별 폴더 클릭
-  async function folderNameClick(name: string) {
+  async function folderNameClick(name: string, id: number) {
     setFolderName(name);
+    setFolderId(id);
   }
 
   //폴더이름을 클릭했을 때 즉각적으로 링크 데이터들이 바뀌도록
@@ -139,7 +142,13 @@ export default function FolderSection() {
           <Edit folderName={folderName} onClose={clickEditName} />
         )}
         {isAddFolderModal && <AddFolder onClose={clickAddFolder} />}
-        {isShareModal && <Share folderName={folderName} onClose={clickShare} />}
+        {isShareModal && (
+          <Share
+            folderId={folderId}
+            folderName={folderName}
+            onClose={clickShare}
+          />
+        )}
         {isDeleteFolderModal && (
           <DeleteFolder folderName={folderName} onClose={clickDeleteFolder} />
         )}
@@ -161,7 +170,7 @@ export default function FolderSection() {
                   key={id}
                   className={selectedFolderId === id ? styles.active : ""}
                   onClick={() => {
-                    folderNameClick(name);
+                    folderNameClick(name, id);
                     setSelectedFolderId(id);
                     setSelectedId(id);
                   }}
