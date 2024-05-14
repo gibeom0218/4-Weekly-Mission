@@ -40,9 +40,6 @@ export default function LinkAdd() {
         onSuccess: () => {
           console.log("onSuccess in mutate");
         },
-        onSettled: () => {
-          console.log("onSettled in mutate");
-        },
       });
     }
   };
