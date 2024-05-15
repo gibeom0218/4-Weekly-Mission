@@ -22,6 +22,9 @@ export default function LinkAdd() {
       queryClient.invalidateQueries({
         queryKey: ["individualList", Number(folderId.data)],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["allList"],
+      });
     },
   });
 

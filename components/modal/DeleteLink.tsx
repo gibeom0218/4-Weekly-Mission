@@ -29,6 +29,9 @@ export default function DeleteFolder({
       queryClient.invalidateQueries({
         queryKey: ["individualList", Number(folderId.data)],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["allList"],
+      });
     },
   });
 
