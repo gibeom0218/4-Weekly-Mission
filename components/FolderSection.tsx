@@ -254,6 +254,7 @@ export default function FolderSection() {
                   return (
                     <CardList
                       key={id}
+                      linkId={id}
                       url={url}
                       createdAt={created_at}
                       desc={description}

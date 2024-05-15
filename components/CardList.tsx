@@ -7,6 +7,7 @@ import star_icon from "@/public/images/star.svg";
 import kebab_icon from "@/public/images/kebab.svg";
 
 interface CardListProps {
+  linkId: number;
   url: string;
   createdAt: string;
   desc: string;
@@ -14,6 +15,7 @@ interface CardListProps {
 }
 
 export default function CardList({
+  linkId,
   url,
   createdAt,
   desc,
@@ -74,7 +76,9 @@ export default function CardList({
 
   return (
     <div className={styles.CardList}>
-      {isDeleteLinkModal && <DeleteLink link={url} onClose={clickDeleteLink} />}
+      {isDeleteLinkModal && (
+        <DeleteLink linkId={linkId} link={url} onClose={clickDeleteLink} />
+      )}
       {isAddModal && <Add linkUrl={url} onClose={clickAdd} />}
       <img
         id={styles.cardImg}
