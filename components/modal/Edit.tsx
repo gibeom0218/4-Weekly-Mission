@@ -32,6 +32,7 @@ export default function Edit({ folderId, folderName, onClose }: EditProps) {
       queryClient.invalidateQueries({
         queryKey: ["folderList"],
       });
+      onClose();
     },
   });
 

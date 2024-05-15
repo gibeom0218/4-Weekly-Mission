@@ -28,6 +28,7 @@ export default function AddFolder({ onClose }: AddFolderProps) {
       queryClient.invalidateQueries({
         queryKey: ["folderList"],
       });
+      onClose();
     },
   });
 

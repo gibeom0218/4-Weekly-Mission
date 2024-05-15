@@ -28,6 +28,7 @@ export default function DeleteFolder({
       queryClient.invalidateQueries({
         queryKey: ["folderList"],
       });
+      onClose();
     },
   });
 
@@ -37,6 +38,7 @@ export default function DeleteFolder({
       deleteFolderMutation.mutate(folderData, {
         onSuccess: () => {
           console.log("onSuccess in mutate");
+          queryClient.setQueryData(["folderName"], "폴더를 선택해주세요");
         },
       });
     }
