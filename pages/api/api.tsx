@@ -152,6 +152,31 @@ export async function changeName(name: string, folderId: number) {
   }
 }
 
+//폴더의 추가를 위한 api 함수
+export async function addFolder(name: string) {
+  const token = localStorage.getItem("accessToken");
+
+  try {
+    const response = await fetch(`${BASE_URL}/folders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: name,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("폴더를 추가할 수 없습니다.");
+    }
+  } catch (error) {
+    throw new Error("폴더를 추가할 수 없습니다.");
+  }
+}
+
 //로그인 요청을 위한 api함수
 export async function postSignIn(id: string, password: string) {
   const response = await fetch(`${BASE_URL}/auth/sign-in`, {
