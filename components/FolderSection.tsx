@@ -151,7 +151,11 @@ export default function FolderSection() {
       <div className={styles.FolderSection_Frame}>
         <SearchBar onInputChange={handleInputChange} />
         {isEditNameModal && (
-          <Edit folderName={folderName} onClose={clickEditName} />
+          <Edit
+            folderId={folderId}
+            folderName={folderName}
+            onClose={clickEditName}
+          />
         )}
         {isAddFolderModal && <AddFolder onClose={clickAddFolder} />}
         {isShareModal && (
