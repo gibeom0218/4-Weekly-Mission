@@ -7,7 +7,7 @@ import closeIcon from "@/public/images/close.svg";
 
 interface EditProps {
   folderId: number | null;
-  folderName: string;
+  folderName: string | undefined;
   onClose: any;
 }
 
@@ -41,6 +41,7 @@ export default function Edit({ folderId, folderName, onClose }: EditProps) {
       changeFolderNameMutation.mutate(folderData, {
         onSuccess: () => {
           console.log("onSuccess in mutate");
+          queryClient.setQueryData(["folderName"], name);
         },
       });
     }

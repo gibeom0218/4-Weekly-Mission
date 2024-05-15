@@ -29,7 +29,9 @@ interface CardListType {
 }
 
 export default function FolderSection() {
-  const [folderName, setFolderName] = useState("폴더를 선택해주세요");
+  const [folderName, setFolderName] = useState<string | undefined>(
+    "폴더를 선택해주세요"
+  );
   const [folderId, setFolderId] = useState<number | null>(null);
   //카드리스트에 관한
   const [cardList, setCardList] = useState<CardListType[]>([]);
@@ -48,6 +50,11 @@ export default function FolderSection() {
 
   const queryClient = useQueryClient();
 
+  //현재 폴더 이름을 최신으로 가져오기 위한
+  const currentFolderName = useQuery<string>({
+    queryKey: ["folderName"],
+  });
+
   //전체 폴더 가져오기
   const allList = useQuery({
     queryKey: ["allList"],
@@ -56,9 +63,9 @@ export default function FolderSection() {
 
   //전체 폴더 클릭
   async function folderAllNameClick() {
-    setFolderName("전체");
     setFolderId(null);
     queryClient.setQueryData(["folderId"], null);
+    queryClient.setQueryData(["folderName"], "전체");
   }
 
   //개별 폴더 가져오기
@@ -76,20 +83,21 @@ export default function FolderSection() {
 
   //개별 폴더 클릭
   async function folderNameClick(name: string, id: number) {
-    setFolderName(name);
     setFolderId(id);
     queryClient.setQueryData(["folderId"], id);
+    queryClient.setQueryData(["folderName"], name);
   }
   //폴더이름을 클릭했을 때 즉각적으로 링크 데이터들이 바뀌도록
   useEffect(() => {
-    if (individualList.data && folderName !== "전체") {
+    setFolderName(currentFolderName.data);
+    if (individualList.data && currentFolderName.data !== "전체") {
       setCardList(individualList.data);
       setFilteredCardList(individualList.data);
-    } else if (folderName === "전체") {
+    } else if (currentFolderName.data === "전체") {
       setCardList(allList.data);
       setFilteredCardList(allList.data);
     }
-  }, [individualList.data, folderName, allList.data]);
+  }, [individualList.data, currentFolderName.data, allList.data]);
 
   //폴더 버튼
   const folderList = useQuery({
@@ -103,6 +111,15 @@ export default function FolderSection() {
     queryKey: ["folderId"],
     queryFn: async () => {
       return folderId;
+    },
+  });
+
+  //폴더 이름 변경을 위해 현재 폴더 이름을 쿼리에 저장
+  //처음 랜더링 될때 한번
+  useQuery({
+    queryKey: ["folderName"],
+    queryFn: async () => {
+      return folderName;
     },
   });
 

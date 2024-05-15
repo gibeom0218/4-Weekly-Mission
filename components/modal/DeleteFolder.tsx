@@ -4,7 +4,7 @@ import styles from "@/styles/DeleteFolder.module.css";
 import closeIcon from "@/public/images/close.svg";
 
 interface DeleteFolderProps {
-  folderName: string;
+  folderName: string | undefined;
   onClose: any;
 }
 

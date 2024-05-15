@@ -9,7 +9,7 @@ import linkIcon from "@/public/images/link.svg";
 
 interface ShareProps {
   folderId: number | null;
-  folderName: string;
+  folderName: string | undefined;
   onClose: any;
 }
 
