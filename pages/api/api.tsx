@@ -177,6 +177,28 @@ export async function addFolder(name: string) {
   }
 }
 
+//폴더의 삭제를 위한 api 함수
+export async function deleteFolder(folderId: number) {
+  const token = localStorage.getItem("accessToken");
+
+  try {
+    const response = await fetch(`${BASE_URL}/folders/${folderId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("폴더를 삭제할 수 없습니다.");
+    }
+  } catch (error) {
+    throw new Error("폴더를 삭제할 수 없습니다.");
+  }
+}
+
 //로그인 요청을 위한 api함수
 export async function postSignIn(id: string, password: string) {
   const response = await fetch(`${BASE_URL}/auth/sign-in`, {

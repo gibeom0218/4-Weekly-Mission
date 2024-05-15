@@ -183,7 +183,11 @@ export default function FolderSection() {
           />
         )}
         {isDeleteFolderModal && (
-          <DeleteFolder folderName={folderName} onClose={clickDeleteFolder} />
+          <DeleteFolder
+            folderId={folderId}
+            folderName={folderName}
+            onClose={clickDeleteFolder}
+          />
         )}
         <div className={styles.FolderBtnList}>
           <div className={styles.FolderBtn}>
