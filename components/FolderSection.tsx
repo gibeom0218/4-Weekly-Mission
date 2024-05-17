@@ -119,7 +119,10 @@ export default function FolderSection() {
   useQuery({
     queryKey: ["folderName"],
     queryFn: async () => {
-      return folderName;
+      if (folderName) {
+        return folderName;
+      }
+      return null;
     },
   });
 

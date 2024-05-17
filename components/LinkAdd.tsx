@@ -12,18 +12,21 @@ interface LinkData {
 
 export default function LinkAdd() {
   const [url, setUrl] = useState(""); // input 값에 대한 상태
-  const folderId = useQuery({ queryKey: ["folderId"] });
-
   const queryClient = useQueryClient();
+
+  const folderId = queryClient.getQueryData(["folderId"]);
 
   const addLinkMutation = useMutation<void, Error, LinkData>({
     mutationFn: (linkData) => addLink(linkData.url, Number(linkData.folderId)),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["individualList", Number(folderId.data)],
+        queryKey: ["individualList", folderId],
       });
       queryClient.invalidateQueries({
         queryKey: ["allList"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["folderList"],
       });
     },
   });
@@ -37,8 +40,9 @@ export default function LinkAdd() {
   const handleAddClick = (e: any) => {
     e.preventDefault();
     //링크를 추가하는 API 호출 등의 작업 수행
-    if (folderId.data !== null) {
-      const linkData: LinkData = { url, folderId: folderId.data };
+    //console.log(dummyData);
+    if (folderId !== null) {
+      const linkData: LinkData = { url, folderId };
       addLinkMutation.mutate(linkData, {
         onSuccess: () => {
           console.log("onSuccess in mutate");

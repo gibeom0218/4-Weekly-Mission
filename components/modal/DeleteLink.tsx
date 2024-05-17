@@ -21,16 +21,20 @@ export default function DeleteFolder({
   onClose,
 }: DeleteLinkProps) {
   const queryClient = useQueryClient();
-  const folderId = useQuery({ queryKey: ["folderId"] });
+  //const folderId = useQuery({ queryKey: ["folderId"] });
+  const folderId = queryClient.getQueryData(["folderId"]);
 
   const deleteFolderMutation = useMutation<void, Error, LinkData>({
     mutationFn: (linkData) => deleteLink(linkData.linkId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["individualList", Number(folderId.data)],
+        queryKey: ["individualList", folderId],
       });
       queryClient.invalidateQueries({
         queryKey: ["allList"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["folderList"],
       });
     },
   });
