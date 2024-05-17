@@ -28,6 +28,7 @@ export default function LinkAdd() {
       queryClient.invalidateQueries({
         queryKey: ["folderList"],
       });
+      setUrl(""); // 추가 성공 시 input 값 초기화
     },
   });
 
@@ -40,7 +41,6 @@ export default function LinkAdd() {
   const handleAddClick = (e: any) => {
     e.preventDefault();
     //링크를 추가하는 API 호출 등의 작업 수행
-    //console.log(dummyData);
     if (folderId !== null) {
       const linkData: LinkData = { url, folderId };
       addLinkMutation.mutate(linkData, {
